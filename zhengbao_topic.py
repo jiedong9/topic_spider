@@ -8,6 +8,7 @@
 """
 
 import pymongo
+import re
 import time
 import random
 from requests_html import HTMLSession
@@ -15,8 +16,9 @@ from requests_html import HTMLSession
 session = HTMLSession()
 sleep_time = random.randint(1, 2)
 # 连接数据库
-myclient = pymongo.MongoClient('mongodb://127.0.0.1:27017')
-
+client = pymongo.MongoClient('mongodb://114.67.96.255:27017')
+database = client.zhengbaotopic_detial
+yijian_doc = database.zhengbao_yijian
 ua_list = [
     "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
     "Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
@@ -279,7 +281,7 @@ def topic_url():
         try:
             r = session.get(topicurl, headers=headers)
         except Exception as e:
-            print(e)
+            print('列表页出现错误-------{}'.format(e))
         url_list = r.html.xpath("//*[@class='tex auto']/p/a")
         for url in url_list:
             url_yeild = ''.join(url.absolute_links)
@@ -287,35 +289,49 @@ def topic_url():
 
 
 def detial_content(url_yeild):
-    item = {}
     num = 0
     for url in url_yeild:
         time.sleep(sleep_time)
         try:
             r = session.get(url, headers=headers)
+            item = {}
+            item['item_title'] = ''.join(r.html.xpath(
+                "//h1/text()")).replace('\u3000', '')  # 分类标题
+            # print('------分类标题：' + item['item_title'])
+
+            item['date_time'] = ''.join(
+                r.html.xpath(
+                    "//div[@class='news-from fl']/text()")).strip()  # 时间
+            # print('------文章时间：' + item['date_time'])
+
+            content_list = r.html.xpath(
+                "//div[@class='news-con font-size32']//p/text()")
+            if '建设工程教育网' in content_list[0]:
+                item['title'] = content_list[1].replace('\u3000', '')  # 内容题目
+                print('-------标题是{}'.format(item['title']))
+            else:
+                item['title'] = content_list[0].replace('\u3000', '')
+                print('-------标题是{}'.format(item['title']))
+
+            con = []
+            for content in content_list:  # 内容详情
+                if '建设工程教育网' in content:
+                    continue
+                else:
+                    content = ('<p>' + content + '</p>').replace('\u3000', '')
+                    content_clear = re.compile(
+                        r'(?<=。)参见教材.*?(?=<)').sub('', content)  # 匹配参见教材
+                    con.append(content_clear)
+            item['content'] = ''.join(con)
+            item['url'] = url  # 内容url
+            # print(item)
+            num += 1
+            print('-------正在抓取第{}个'.format(num))
+            yijian_doc.insert_one(item)
+            print('插入数据库成功-----{}'.format(item['title']))
         except Exception as e:
-            print(e)
-        item['item_title'] = ''.join(r.html.xpath("//h1/text()"))
-        # print('------分类标题：' + item['item_title'])
-
-        item['date_time'] = ''.join(
-            r.html.xpath("//div[@class='news-from fl']/text()")).strip()
-        # print('------文章时间：' + item['date_time'])
-
-        content_list = r.html.xpath(
-            "//div[@class='news-con font-size32']//p/text()")
-        item['title'] = content_list[0]
-        # print('------文章标题：' + item['title'])
-        con = []
-        for content in content_list:
-            content = '<p>' + content + '</p>'
-            # print('------详情内容' + '<p>' + content + '</p>')
-            con.append(content)
-        item['content'] = ''.join(con)
-        item['url'] = url
-        print(item)
-        num += 1
-        print('-------正在抓取第{}个'.format(num))
+            print('详情页抓取错误-------{}'.format(e))
+            continue
 
 
 if __name__ == '__main__':
