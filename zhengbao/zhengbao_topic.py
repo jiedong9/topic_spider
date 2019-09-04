@@ -272,11 +272,6 @@ topic_urllist = [
 
 
 def topic_url():
-    """
-    读取url
-    :param :
-    :return:
-    """
     for topicurl in topic_urllist:
         try:
             r = session.get(topicurl, headers=headers)
