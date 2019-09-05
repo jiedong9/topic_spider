@@ -357,7 +357,7 @@ def detial_content(url_yeild):
             # 标题
             item['title'] = ''.join(
                 resp.html.xpath(
-                    "//div[contains(@class,'i-panel')]/div[2]/div/div/p/span/text()"
+                    "//div[contains(@class,'i-panel')]/div[2]/div/div/p/span/text() | //div[contains(@class,'i-panel')]/div[2]/div/p//text()"
                 )).replace('\u3000', '').replace('\xa0', '')
             # 主体内容
             number = resp.html.xpath(
