@@ -13,18 +13,15 @@
 from requests_html import HTMLSession
 session = HTMLSession()
 
-url = 'https://m.examw.com/shiti/55419618/'
-resp = session.get(url, verify=False)
+url = 'http://www.k51.com.cn/QuestDetail/887408e6-5724-40bc-9251-8235b55c9220.html'
+resp = session.get(url)
 
-title = ''.join(resp.html.xpath(
-    "//div[contains(@class,'newsBox')]/h2/span/text()"))
-print(title)
+# title = ''.join(resp.html.xpath(
+#     "//div[contains(@class,'newsBox')]/h2/span/text()"))
+# print(title)
 
 content = resp.html.xpath(
-    "//*[contains(@id,'Tiku')]//text()")
+    "//div[contains(@class,'cont-details-cont-topic')]/ul/li//text()")
+print(content)
 for a in content:
-    a = a.replace('查看试题解析', '').replace('进入焚题库', '')
-    if a == '\n' or a == '\xa0' or a == '':
-        continue
-    else:
-        print('<p>' + a + '</p>')
+    print('<p>' + a + '</p>')
