@@ -2,7 +2,7 @@
 '''
 @File    :   zhonghua_topic.py
 @Time    :   2019/09/04 08:55:40
-@Author  :   Axi 
+@Author  :   Axi
 @Version :   1.0
 @Contact :   785934566@qq.com
 @Desc    :   中华考试网考试题爬虫
@@ -10,21 +10,21 @@
 
 # here put the import lib
 
-import pymongo
-import re
-import time
 import random
-from requests_html import HTMLSession
-from requests.packages import urllib3
-urllib3.disable_warnings()
+import time
 
+import pymongo
+from requests.packages import urllib3
+from requests_html import HTMLSession
+
+urllib3.disable_warnings()
 
 session = HTMLSession()
 sleep_time = random.randint(1, 2)
 # 连接数据库
 client = pymongo.MongoClient('mongodb://114.67.96.255:27017')
 database = client.zhonghuaexam
-yijian_guanli = database.zhonghuayijian_guanli
+yijian_tielu = database.zhonghuayijian_tielu
 ua_list = [
     "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
     "Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
@@ -79,48 +79,48 @@ headers = {
 }
 
 topic_urllist = [
-    "https://m.examw.com/jzs1/xmgl/kaodian/index.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-2.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-3.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-4.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-5.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-6.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-7.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-8.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-9.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-10.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-11.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-12.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-13.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-14.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-15.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-16.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-17.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-18.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-19.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-20.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-21.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-22.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-23.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-24.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-25.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-26.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-27.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-28.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-29.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-30.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-31.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-32.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-33.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-34.html",
-    "https://m.examw.com/jzs1/xmgl/kaodian/index-35.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-2.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-3.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-4.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-5.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-6.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-7.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-8.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-9.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-10.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-11.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-12.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-13.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-14.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-15.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-16.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-17.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-18.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-19.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-20.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-21.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-22.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-23.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-24.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-25.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-26.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-27.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-28.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-29.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-30.html",
+    "https://m.examw.com/jzs1/tlgc/kaodian/index-31.html",
 ]
 
 
 def topic_url():
     for topic_url in topic_urllist:
         try:
-            resp = session.get(topic_url, headers=headers, verify=False,)
+            resp = session.get(
+                topic_url,
+                headers=headers,
+                verify=False,
+            )
             time.sleep(sleep_time)
             resp.encoding = 'gb2312'
         except Exception as e:
@@ -140,15 +140,15 @@ def detial_content(url_yeild):
             time.sleep(sleep_time)
             item = {}
             # 标题
-            item['title'] = ''.join(resp.html.xpath(
-                "//div[contains(@class,'newsBox')]/h2/span/text()"))
+            item['title'] = ''.join(
+                resp.html.xpath(
+                    "//div[contains(@class,'newsBox')]/h2/span/text()"))
             # 时间
-            item['datetime'] = ''.join(resp.html.xpath(
-                "//*[contains(@class,'time')]/span[2]/text()"))
+            item['datetime'] = ''.join(
+                resp.html.xpath("//*[contains(@class,'time')]/span[2]/text()"))
 
             # 内容
-            content_list = resp.html.xpath(
-                "//*[contains(@id,'Tiku')]//text()")
+            content_list = resp.html.xpath("//*[contains(@id,'Tiku')]//text()")
             con = []
             for content in content_list:
                 content = content.replace('查看试题解析', '').replace('进入焚题库', '')
@@ -156,15 +156,15 @@ def detial_content(url_yeild):
                     continue
                 else:
                     content = '<p>' + content + '</p>'
-                    con.append(content.replace(
-                        '\u3000', '').replace('\xa0', ''))
+                    con.append(
+                        content.replace('\u3000', '').replace('\xa0', ''))
                 item['content'] = ''.join(con)
             # url
             item['url'] = url
             print(item)
             num += 1
             print('=======正在抓取的是第 {} 个========='.format(num))
-            yijian_guanli.insert_one(item)
+            yijian_tielu.insert_one(item)
             print('{} ---插入数据库成功'.format(item['title']))
         except Exception as e:
             print('详情页抓取错误-------{}'.format(e))

@@ -1,4 +1,5 @@
 {
-    "python.pythonPath": "D:\\anaconda\\python.exe",
-    "liveServer.settings.port": 5501
+    "python.pythonPath": "D:\\miniconda\\python.exe",
+    "liveServer.settings.port": 5501,
+    "python.formatting.provider": "yapf"
 }
