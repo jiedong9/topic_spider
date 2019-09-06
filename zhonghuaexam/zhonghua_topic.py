@@ -24,7 +24,7 @@ sleep_time = random.randint(1, 2)
 # 连接数据库
 client = pymongo.MongoClient('mongodb://114.67.96.255:27017')
 database = client.zhonghuaexam
-yijian_hangdao = database.zhonghuayijian_hangdao
+yijian_insert = database.zhonghuayijian_tongxin
 ua_list = [
     "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
     "Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
@@ -79,36 +79,37 @@ headers = {
 }
 
 topic_urllist = [
-    "https://m.examw.com/jzs1/hdgc/kaodian/index.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-2.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-3.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-4.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-5.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-6.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-7.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-8.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-9.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-10.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-11.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-12.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-13.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-14.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-15.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-16.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-17.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-18.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-19.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-20.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-21.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-22.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-23.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-24.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-25.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-26.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-27.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-28.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-29.html",
-    "https://m.examw.com/jzs1/hdgc/kaodian/index-30.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-2.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-3.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-4.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-5.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-6.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-7.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-8.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-9.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-10.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-11.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-12.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-13.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-14.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-15.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-16.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-17.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-18.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-19.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-20.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-21.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-22.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-23.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-24.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-25.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-26.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-27.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-28.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-29.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-30.html",
+    "https://m.examw.com/jzs1/tongxin/kaodian/index-31.html",
 ]
 
 
@@ -163,7 +164,7 @@ def detial_content(url_yeild):
             print(item)
             num += 1
             print('=======正在抓取的是第 {} 个========='.format(num))
-            yijian_hangdao.insert_one(item)
+            yijian_insert.insert_one(item)
             print('{} ---插入数据库成功'.format(item['title']))
         except Exception as e:
             print('详情页抓取错误-------{}'.format(e))
