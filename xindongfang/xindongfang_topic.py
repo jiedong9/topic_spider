@@ -22,9 +22,9 @@ urllib3.disable_warnings()
 session = HTMLSession()
 sleep_time = random.randint(1, 2)
 # 连接数据库
-client = pymongo.MongoClient('mongodb://114.67.96.255:27017')
+client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
 database = client.xindongfang
-yijian_insert = database.kuangye_xindongfangyijian
+yijian_insert = database.erjian_kuangye
 ua_list = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
     'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36',
@@ -59,92 +59,13 @@ ua_list = [
     'Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)',
 ]
 ua = random.choice(ua_list)
-
+21
 headers = {
     'Host': 'www.51zhishang.com',
     'user-agent': ua,
 }
 
-topic_urllist = [
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-1.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-2.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-3.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-4.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-5.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-6.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-7.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-8.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-9.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-10.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-11.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-12.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-13.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-14.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-15.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-16.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-17.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-18.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-19.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-20.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-21.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-22.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-23.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-24.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-25.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-26.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-27.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-28.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-29.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-30.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-31.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-32.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-33.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-34.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-35.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-36.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-37.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-38.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-39.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-40.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-41.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-42.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-43.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-44.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-45.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-46.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-47.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-48.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-49.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-50.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-51.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-52.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-53.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-54.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-55.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-56.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-57.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-58.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-59.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-60.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-61.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-62.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-63.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-64.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-65.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-66.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-67.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-68.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-69.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-70.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-71.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-72.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-73.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-74.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-75.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-76.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-77.html",
-    "https://www.51zhishang.com/shiti/tk-7-39-2899-0-78.html",
-]
+topic_urllist = ['https://www.51zhishang.com/shiti/tk-7-40-2907-0-{}.html'.format(i) for i in range(1, 176)]
 
 
 def topic_url():
